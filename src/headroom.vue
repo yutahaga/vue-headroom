@@ -1,5 +1,5 @@
 <template>
-  <div :class="cls" :style="style">
+  <div :class="cls">
     <slot></slot>
   </div>
 </template>
@@ -33,7 +33,6 @@ export default {
       currentScrollY: 0,
       lastScrollY: 0,
       state: '',
-      translate: 0,
       isSupport3d: false
     }
   },
@@ -59,21 +58,6 @@ export default {
       default: 0
     },
 
-    speed: {
-      type: Number,
-      default: 250
-    },
-
-    easing: {
-      type: String,
-      default: 'ease-in-out'
-    },
-
-    zIndex: {
-      type: Number,
-      default: 9999
-    },
-
     onPin: Function,
     onUnpin: Function,
     onTop: Function,
@@ -91,11 +75,6 @@ export default {
       default () {
         return defaultCls
       }
-    },
-
-    footroom: {
-      type: Boolean,
-      default: false
     }
   },
 
@@ -125,31 +104,6 @@ export default {
   },
 
   computed: {
-    style () {
-      let styles = {
-        'position': this.isInTop ? 'fixed' : 'relative',
-        'top': '0',
-        'left': '0',
-        'right': '0',
-        'z-index': this.isInTop ? this.zIndex : 1
-      }
-
-      if (this.footroom) {
-        styles = { ...styles, 'top': 'unset', 'bottom': '0' }
-      }
-
-      // SSR cannot detect scroll position. To prevent flash when component mounted,
-      // just add transition styles in browser.
-      if (!this.$isServer) {
-        styles.transform = this.isSupport3d && !this.$isServer
-          ? `translate3d(0, ${this.translate}, 0)`
-          : `translateY(${this.translate})`
-
-        styles.transition = this.isInTop ? `all ${this.speed}ms ${this.easing}` : null
-      }
-
-      return styles
-    },
 
     clsOpts () {
       return {
@@ -323,7 +277,6 @@ export default {
         this.isUnpinned = false
         this.onPin && this.onPin()
         this.$emit('pin')
-        this.translate = 0
         setTimeout(() => {
           this.state = 'pinned'
         }, 0)
@@ -336,7 +289,6 @@ export default {
         this.isPinned = false
         this.onUnpin && this.onUnpin()
         this.$emit('unpin')
-        this.translate = this.footroom ? '100%' : '-100%'
         setTimeout(() => {
           this.state = 'unpinned'
         }, 0)
