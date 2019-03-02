@@ -221,7 +221,7 @@ export default {
         this.notTop()
       }
 
-      if (this.currentScrollY +
+      if (Math.round(this.currentScrollY) +
         this._getViewportHeight() >= this._getScrollerHeight()) {
         this.bottom()
       } else {
