@@ -354,7 +354,7 @@ var vueHeadroom = (function () {
 	        this.notTop();
 	      }
 
-	      if (this.currentScrollY + this._getViewportHeight() >= this._getScrollerHeight()) {
+	      if (Math.round(this.currentScrollY) + this._getViewportHeight() >= this._getScrollerHeight()) {
 	        this.bottom();
 	      } else {
 	        this.notBottom();

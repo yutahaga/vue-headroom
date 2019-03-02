@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "description": "Headroom component for Vuejs",
   "main": "./dist/vue-headroom.min.js",
+  "module": "./dist/vue-headroom.es.js",
   "browser": "./dist/vue-headroom.js",
   "scripts": {
     "lint": "eslint ./src/*.js",
