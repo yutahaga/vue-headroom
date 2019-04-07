@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import raf from 'raf'
 import checkActions from './checkActions'
 import support3d from './support3d'
 
@@ -182,7 +181,7 @@ export default {
     },
 
     _handleScroll () {
-      raf(this.update)
+      window.requestAnimationFrame(this.update)
     },
 
     _getScrollY () {

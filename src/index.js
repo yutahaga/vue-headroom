@@ -1,7 +1,7 @@
 import headroom from './headroom.vue'
 
-const install = function (Vue, opt = {}) {
-  if (install.installed) {
+const install = function(Vue, opt = {}) {
+  if (install.installed || !('requestAnimationFrame' in window)) {
     return
   }
 
