@@ -4,9 +4,12 @@
   </div>
 </template>
 
-<script>
-import checkActions from './checkActions'
+<script lang="ts">
+import Vue from 'vue'
+import checkActions, { States } from './checkActions'
 import support3d from './support3d'
+
+type Prop<T> = () => T
 
 const defaultCls = {
   pinned: 'headroom--pinned',
@@ -18,10 +21,10 @@ const defaultCls = {
   initial: 'headroom'
 }
 
-export default {
+export default Vue.extend({
   name: 'vueHeadroom',
 
-  data () {
+  data() {
     return {
       isTop: false,
       isNotTop: false,
@@ -39,11 +42,11 @@ export default {
   props: {
     scroller: {
       type: Function,
-      default: () => window
+      default: (): Window | HTMLElement => window
     },
 
     disabled: {
-      type: Boolean,
+      type: Boolean as Prop<boolean>,
       default: false
     },
 
@@ -63,15 +66,15 @@ export default {
     },
 
     classes: {
-      type: Object,
-      default () {
+      type: Object as Prop<typeof defaultCls>,
+      default() {
         return defaultCls
       }
     }
   },
 
   watch: {
-    disabled (newVal) {
+    disabled(newVal: boolean) {
       if (newVal) {
         this.scroller().removeEventListener('scroll', this._handleScroll)
       } else {
@@ -80,7 +83,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.isSupport3d = support3d()
 
     if (!this.disabled) {
@@ -91,85 +94,76 @@ export default {
     this._handleScroll()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.scroller().removeEventListener('scroll', this._handleScroll)
   },
 
   computed: {
-
-    clsOpts () {
+    clsOpts(): typeof defaultCls {
       return {
         ...defaultCls,
         ...this.classes
       }
     },
 
-    cls () {
+    cls(): Record<string, boolean> {
       let cls = this.clsOpts
       return this.disabled
         ? {}
         : {
-          [cls.top]: this.isTop,
-          [cls.notTop]: this.isNotTop,
-          [cls.bottom]: this.isBottom,
-          [cls.notBottom]: this.isNotBottom,
-          [cls.pinned]: this.isPinned,
-          [cls.unpinned]: this.isUnpinned,
-          [cls.initial]: true
-        }
+            [cls.top]: this.isTop,
+            [cls.notTop]: this.isNotTop,
+            [cls.bottom]: this.isBottom,
+            [cls.notBottom]: this.isNotBottom,
+            [cls.pinned]: this.isPinned,
+            [cls.unpinned]: this.isUnpinned,
+            [cls.initial]: true
+          }
     },
 
-    isInTop () {
+    isInTop(): boolean {
       return this.state === 'pinned' || this.state === 'unpinned'
     }
   },
 
   methods: {
-    _getViewportHeight: () => {
-      return window.innerHeight
-        || document.documentElement.clientHeight
-        || document.body.clientHeight
+    _getViewportHeight: (): number => {
+      return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
     },
 
-    _getElementPhysicalHeight: elm => Math.max(
-      elm.offsetHeight,
-      elm.clientHeight
-    ),
+    _getElementPhysicalHeight: (elm: HTMLElement): number => Math.max(elm.offsetHeight, elm.clientHeight),
 
-    _getDocumentHeight: () => {
+    _getDocumentHeight: (): number => {
       const body = document.body
       const documentElement = document.documentElement
 
       return Math.max(
-        body.scrollHeight, documentElement.scrollHeight,
-        body.offsetHeight, documentElement.offsetHeight,
-        body.clientHeight, documentElement.clientHeight
+        body.scrollHeight,
+        documentElement.scrollHeight,
+        body.offsetHeight,
+        documentElement.offsetHeight,
+        body.clientHeight,
+        documentElement.clientHeight
       )
     },
 
-    _getElementHeight: elm => Math.max(
-      elm.scrollHeight,
-      elm.offsetHeight,
-      elm.clientHeight
-    ),
+    _getElementHeight: (elm: HTMLElement): number => Math.max(elm.scrollHeight, elm.offsetHeight, elm.clientHeight),
 
-    _getScrollerPhysicalHeight () {
+    _getScrollerPhysicalHeight(): number {
       const parent = this.scroller()
 
-      return (parent === window || parent === document.body)
+      return parent === window || parent === document.body
         ? this._getViewportHeight()
         : this._getElementPhysicalHeight(parent)
     },
 
-    _getScrollerHeight () {
+    _getScrollerHeight(): number {
       const parent = this.scroller()
 
-      return (parent === window || parent === document.body)
-        ? this._getDocumentHeight()
-        : this._getElementHeight(parent)
+      return parent === window || parent === document.body ? this._getDocumentHeight() : this._getElementHeight(parent)
     },
 
-    _isOutOfBound (currentScrollY) {
+    _isOutOfBound(currentScrollY: number): boolean {
       const pastTop = currentScrollY < 0
 
       const scrollerPhysicalHeight = this._getScrollerPhysicalHeight()
@@ -180,27 +174,23 @@ export default {
       return pastTop || pastBottom
     },
 
-    _handleScroll () {
+    _handleScroll(): void {
       window.requestAnimationFrame(this.update)
     },
 
-    _getScrollY () {
+    _getScrollY(): number {
       let top
       if (this.scroller().pageYOffset !== undefined) {
         top = this.scroller().pageYOffset
       } else if (this.scroller().scrollTop !== undefined) {
         top = this.scroller().scrollTop
       } else {
-        top = (
-          document.documentElement ||
-          document.body.parentNode ||
-          document.body
-        ).scrollTop
+        top = (document.documentElement || document.body.parentNode || document.body).scrollTop
       }
       return top
     },
 
-    update () {
+    update(): void {
       this.currentScrollY = this._getScrollY()
 
       if (this._isOutOfBound(this.currentScrollY)) {
@@ -213,8 +203,7 @@ export default {
         this.notTop()
       }
 
-      if (Math.round(this.currentScrollY) +
-        this._getViewportHeight() >= this._getScrollerHeight()) {
+      if (Math.round(this.currentScrollY) + this._getViewportHeight() >= this._getScrollerHeight()) {
         this.bottom()
       } else {
         this.notBottom()
@@ -231,7 +220,7 @@ export default {
       this.lastScrollY = this.currentScrollY
     },
 
-    top () {
+    top(): void {
       if (!this.isTop) {
         this.isTop = true
         this.isNotTop = false
@@ -239,7 +228,7 @@ export default {
       }
     },
 
-    notTop () {
+    notTop(): void {
       if (!this.isNotTop) {
         this.isTop = false
         this.isNotTop = true
@@ -247,7 +236,7 @@ export default {
       }
     },
 
-    bottom () {
+    bottom(): void {
       if (!this.isBottom) {
         this.isBottom = true
         this.isNotBottom = false
@@ -255,7 +244,7 @@ export default {
       }
     },
 
-    notBottom () {
+    notBottom(): void {
       if (!this.isNotBottom) {
         this.isNotBottom = true
         this.isBottom = false
@@ -263,7 +252,7 @@ export default {
       }
     },
 
-    pin () {
+    pin(): void {
       if (!this.isPinned) {
         this.isPinned = true
         this.isUnpinned = false
@@ -274,7 +263,7 @@ export default {
       }
     },
 
-    unpin () {
+    unpin(): void {
       if (this.isPinned || !this.isUnpinned) {
         this.isUnpinned = true
         this.isPinned = false
@@ -285,6 +274,5 @@ export default {
       }
     }
   }
-
-}
+})
 </script>

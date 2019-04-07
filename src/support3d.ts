@@ -1,7 +1,7 @@
 // borrowed from modernizr
 // https://github.com/Modernizr/Modernizr/blob/master/feature-detects/css/transforms3d.js
 
-function supports3d() {
+function supports3d(): boolean {
   let div = document.createElement('div')
   let ret = false
   let properties = ['perspectiveProperty', 'WebkitPerspective']
@@ -21,8 +21,8 @@ function supports3d() {
 
     ret = div.offsetWidth === 7 && div.offsetHeight === 18
 
-    st.parentNode.removeChild(st)
-    div.parentNode.removeChild(div)
+    st.parentNode!.removeChild(st)
+    div.parentNode!.removeChild(div)
   }
 
   return ret

@@ -1,3 +1,4 @@
 module.exports = {
-  extends: ['eslint:recommended', '@yutahaga/standard/prettier', '@yutahaga/vue/prettier', '@yutahaga/prettier']
+  extends: ['@yutahaga/vue-all-in-one'],
+  parser: require.resolve('vue-eslint-parser')
 }

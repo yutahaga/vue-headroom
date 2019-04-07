@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./style.css">
-    <script src="https://unpkg.com/vue@2.5.9"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://unpkg.com/vue@2.6.10"></script>
     <script src="https://unpkg.com/markdown-it@8.3.2/dist/markdown-it.min.js"></script>
     <script src="https://unpkg.com/vue-headroom@latest"></script>
   </head>
@@ -19,7 +19,11 @@
         <div class="wrapper">
           <p><a href="https://github.com/dalphyx/vue-headroom">Code on Github</a></p>
 
-          <p>Vue-headroom is a vue component to let headroom work with vue. The original idea of headroom come from <a href="https://github.com/WickyNilliams/headroom.js">headroom.js</a>. vue-headroom heavily inspired by headroom.js and <a href="https://github.com/KyleAMathews/react-headroom">react-headroom</a>.</p>
+          <p>
+            Vue-headroom is a vue component to let headroom work with vue. The original idea of headroom come from
+            <a href="https://github.com/WickyNilliams/headroom.js">headroom.js</a>. vue-headroom heavily inspired by
+            headroom.js and <a href="https://github.com/KyleAMathews/react-headroom">react-headroom</a>.
+          </p>
 
           <h1>Installation</h1>
 
@@ -36,87 +40,63 @@
       </main>
     </div>
     <script type="text/template" id="props-content">
-`speed`
+      `speed`
 
-Transition speed, in ms. Default: `350`
+      Transition speed, in ms. Default: `350`
 
-`easing`
+      `easing`
 
-Transition function. Default: `ease-in-out`
+      Transition function. Default: `ease-in-out`
 
-`disabled`
+      `disabled`
 
-Disable the headroom. Default: false
+      Disable the headroom. Default: false
 
-`upTolerance`
+      `upTolerance`
 
-Scroll tolerance when scrolling up before component is pinned, in px. Default: `5`
+      Scroll tolerance when scrolling up before component is pinned, in px. Default: `5`
 
-`downTolerance`
+      `downTolerance`
 
-Scroll tolerance when scrolling down before component is pinned, in px. Default: `0`
+      Scroll tolerance when scrolling down before component is pinned, in px. Default: `0`
 
-`scroller`
+      `scroller`
 
-Element to listen to scroll events on. Default: () => `window`
+      Element to listen to scroll events on. Default: () => `window`
 
-`classes`
+      `classes`
 
-Css classes to apply. Default:
-```html
-{
-  // when element is initialised
-  initial : "headroom",
-  // when scrolling up
-  pinned : "headroom--pinned",
-  // when scrolling down
-  unpinned : "headroom--unpinned",
-  // when above offset
-  top : "headroom--top",
-  // when below offset
-  notTop : "headroom--not-top",
-  // when at bottom of scoll area
-  bottom : "headroom--bottom",
-  // when not at bottom of scroll area
-  notBottom : "headroom--not-bottom"
-}
-```
+      Css classes to apply. Default:
+      ```html
+      {
+        // when element is initialised
+        initial : "headroom",
+        // when scrolling up
+        pinned : "headroom--pinned",
+        // when scrolling down
+        unpinned : "headroom--unpinned",
+        // when above offset
+        top : "headroom--top",
+        // when below offset
+        notTop : "headroom--not-top",
+        // when at bottom of scoll area
+        bottom : "headroom--bottom",
+        // when not at bottom of scroll area
+        notBottom : "headroom--not-bottom"
+      }
+      ```
 
-`onPin`
+      `offset`
 
-Callback when header is pinned.
+      Height in px where the header should start and stop pinning. Default: `0`
 
-`onUnpin`
+      `zIndex`
 
-Callback when header is unpinned.
+      The z-index of component. Default: `9999`
 
-`onTop`
+      `footroom`
 
-Callback when above offset.
-
-`onNotTop`
-
-Callback when below offset.
-
-`onBottom`
-
-Callback when at bottom of page.
-
-`onNotBottom`
-
-Callback when moving away from bottom of page.
-
-`offset`
-
-Height in px where the header should start and stop pinning. Default: `0`
-
-`zIndex`
-
-The z-index of component. Default: `9999`
-
-`footroom`
-
-Same behaviour but as a footer instead. Default: `false`
+      Same behaviour but as a footer instead. Default: `false`
     </script>
     <script src="./app.js"></script>
   </body>
