@@ -58,13 +58,6 @@ export default {
       default: 0
     },
 
-    onPin: Function,
-    onUnpin: Function,
-    onTop: Function,
-    onNotTop: Function,
-    onBottom: Function,
-    onNotBottom: Function,
-
     offset: {
       type: Number,
       default: 0
@@ -243,7 +236,7 @@ export default {
       if (!this.isTop) {
         this.isTop = true
         this.isNotTop = false
-        this.onTop && this.onTop()
+        this.$emit('top')
       }
     },
 
@@ -251,7 +244,7 @@ export default {
       if (!this.isNotTop) {
         this.isTop = false
         this.isNotTop = true
-        this.onNotTop && this.onNotTop()
+        this.$emit('not-top')
       }
     },
 
@@ -259,7 +252,7 @@ export default {
       if (!this.isBottom) {
         this.isBottom = true
         this.isNotBottom = false
-        this.onBottom && this.onBottom()
+        this.$emit('bottom')
       }
     },
 
@@ -267,7 +260,7 @@ export default {
       if (!this.isNotBottom) {
         this.isNotBottom = true
         this.isBottom = false
-        this.onNotBottom && this.onNotBottom()
+        this.$emit('not-bottom')
       }
     },
 
@@ -275,7 +268,6 @@ export default {
       if (!this.isPinned) {
         this.isPinned = true
         this.isUnpinned = false
-        this.onPin && this.onPin()
         this.$emit('pin')
         setTimeout(() => {
           this.state = 'pinned'
@@ -287,7 +279,6 @@ export default {
       if (this.isPinned || !this.isUnpinned) {
         this.isUnpinned = true
         this.isPinned = false
-        this.onUnpin && this.onUnpin()
         this.$emit('unpin')
         setTimeout(() => {
           this.state = 'unpinned'
