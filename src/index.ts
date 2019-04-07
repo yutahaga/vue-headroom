@@ -2,7 +2,7 @@ import Vue from 'vue'
 import headroom from './headroom.vue'
 
 const install = function(_Vue: typeof Vue): void {
-  if (install['installed'] || !('requestAnimationFrame' in window)) {
+  if (install['installed'] || (typeof window !== 'undefined' && !('requestAnimationFrame' in window))) {
     return
   }
 
