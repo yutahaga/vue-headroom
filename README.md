@@ -9,7 +9,7 @@
 # Installation
 
 ``` bash
-$ npm install vue-headroom
+$ npm install @yutahaga/vue-headroom
 ```
 
 # Docs & Demo
