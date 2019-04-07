@@ -1,5 +1,5 @@
 {
-  "name": "vue-headroom",
+  "name": "@yutahaga/vue-headroom",
   "version": "0.9.0",
   "description": "Headroom component for Vuejs",
   "main": "./dist/vue-headroom.cjs.js",
@@ -19,22 +19,22 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && git add"
+      "pre-commit": "npm run format && git add ."
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dalphyx/vue-headroom.git"
+    "url": "git+https://github.com/yutahaga/vue-headroom.git"
   },
-  "author": "dalphyx <wjcbmk@gmail.com>",
+  "author": "Yuta haga <yutahaga7@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "vue": "^2.6.10"
   },
   "bugs": {
-    "url": "https://github.com/dalphyx/vue-headroom/issues"
+    "url": "https://github.com/yutahaga/vue-headroom/issues"
   },
-  "homepage": "https://github.com/dalphyx/vue-headroom#readme",
+  "homepage": "https://github.com/yutahaga/vue-headroom#readme",
   "browserslist": [
     ">0.5%",
     "last 2 versions",

@@ -1,4 +1,4 @@
-# vue-headroom [![npm package](https://img.shields.io/npm/v/vue-headroom.svg)](https://www.npmjs.com/package/vue-headroom)
+# vue-headroom [![npm package](https://img.shields.io/npm/v/@yutahaga/vue-headroom.svg)](https://www.npmjs.com/package/@yutahaga/vue-headroom)
 
 > Headroom for Vuejs.
 
@@ -14,7 +14,7 @@ $ npm install vue-headroom
 
 # Docs & Demo
 
-[https://dalphyx.github.io/vue-headroom/](https://dalphyx.github.io/vue-headroom/)
+[https://yutahaga.github.io/vue-headroom/](https://yutahaga.github.io/vue-headroom/)
 
 # Usage
 ``` html
@@ -127,3 +127,5 @@ Callback when moving away from bottom of page.
 # License
 
 [The MIT License](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2016 dalphyx <wjcbmk@gmail.com>

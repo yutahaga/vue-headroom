@@ -16,6 +16,9 @@ const config: Config = {
   babel: {
     babelrc: false,
     configFile: true
+  },
+  banner: {
+    author: 'dalphyx <wjcbmk@gmail.com>'
   }
 }
 
